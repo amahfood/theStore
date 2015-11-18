@@ -1,42 +1,10 @@
 <%-- 
     Document   : login
     Created on : Nov 15, 2015, 9:10:45 PM
-    Author     : Abby
+    Author     : Abby & Patrick
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!--<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login Page</title>
-    </head>
-    <body>
-        <form action="profile.jsp">
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Please Login</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>User Email:</strong><input type="text" name="userEmail" value="" /></td>
-                    </tr>
-                    <tr>
-                        <td><strong>User Password:</strong><input type="password" name="userPass" value="" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" value="Submit" /></td>
-                    </tr>
-                </tbody>
-            </table>            
-        </form>
-    </body>
-</html>-->
 
 
 <html lang="en">
@@ -59,44 +27,48 @@
   </head>
   <body>
       
+          <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">Database Project</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.jsp">Home</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="signup.jsp">Signup</a></li>
+<!--            <li class="active"><a href="./">Static top <span class="sr-only">(current)</span></a></li>-->
+            <li><a href="login.jsp">Login</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+      
     <div class="container">
+        <div class="jumbotron">
 
-    <form class="form-signin" action=""profile.jsp">
+    <form class="form-signin" action="profile.jsp">
       <h2 class="form-signin-heading">Please sign in</h2>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="userEmail" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="userPass" required>
       <div class="checkbox">
-<!--        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>-->
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Sign in</button>
     </form>
 
+        </div> <!-- /jumbotron -->
     </div> <!-- /container -->
     
-<!--    <form action="profile.jsp">
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Please Login</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>User Email:</strong><input type="text" name="userEmail" value="" /></td>
-                </tr>
-                <tr>
-                    <td><strong>User Password:</strong><input type="password" name="userPass" value="" /></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" value="Submit" /></td>
-                </tr>
-            </tbody>
-        </table>            
-    </form>-->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -5,17 +5,12 @@
     Created on : Nov 15, 2015, 1:49:45 PM
     Author     : Abby & Patrick
 --%>
- <sql:query var="userQuery" dataSource="jdbc/mudkip">
+
+<sql:query var="userQuery" dataSource="jdbc/mudkip">
     SELECT * FROM user
     WHERE user.userEmail = ? <sql:param value="${param.userEmail}"/>
-</sql:query>   
-<c:set var="userDetails" value="${userQuery.rows[0]}"/>
-
-<sql:query var="prodQuery" dataSource="jdbc/mudkip">
-    SELECT * FROM product
-    WHERE product.prodName = ? <sql:param value="${param.userEmail}"/>
 </sql:query>
-<c:set var="prodDetails" value="${prodQuery.rows[0]}"/>
+<c:set var="userDetails" value="${userQuery.rows[0]}"/>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -53,12 +48,21 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.jsp">Home</a></li>
+              <form action="returnStore">
+                  <li class="active"><input type="submit" value="Home" /></li>
+                  <div class="hidden">
+                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                    </div>
+              </form>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="signup.jsp">Signup</a></li>
-<!--            <li class="active"><a href="./">Static top <span class="sr-only">(current)</span></a></li>-->
-            <li><a href="login.jsp">Login</a></li>
+            <form action="profileInfo">
+                <input type="submit" value="${userDetails.userName}'s Profile" />
+                <div class="hidden">
+                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                </div>
+            </form>
+            <li><a href="logout.jsp">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -70,23 +74,52 @@
       <!-- Main component for a primary marketing message or call to action -->
       <div class="container">
               <div class="jumbotron">
-                <sql:query var="result" dataSource="jdbc/mudkip">
+                  <h2 align="center">All Active Products Sold by the Store!</h2>
+                  <sql:query var="result" dataSource="jdbc/mudkip">
                       SELECT prodID, prodName, supName, prodDesc, prodPrice, prodQuant  FROM product, supplier
-                      WHERE product.supID = supplier.supID AND product.active='1' AND product.prodName = ? <sql:param value="${param.prodName}"/>
+                      WHERE product.supID = supplier.supID
                   </sql:query>
-                  <c:set var="prodDetails" value="${result.rows[0]}"/>
-                  <h2>${prodDetails.prodName}</h2>
-                      <br><strong>Product ID: </strong> ${prodDetails.prodID}</br>
-                      <br><strong>Product Name: </strong> ${prodDetails.prodName}</br>
-                      <br><strong>Product Supplier: </strong> ${prodDetails.supName}</br>
-                      <br><strong>Product Description: </strong> ${prodDetails.prodDesc}</br>
-                      <br><strong>Product Price: </strong> ${prodDetails.prodPrice}</br>
-                      <br><strong>Product Stock: </strong> ${prodDetails.prodQuant} ${prodDetails.prodName} in Stock</br>
-                      
+                  <table border="2">
+                      <col width="2000">
+                      <col width="2000">
+                      <col width="2000">
+                      <col width="2000">
+                      <col width="2000">
+                      <col width="2000">
+                      <!-- column headers -->
+                      <tr>
+                        <th>
+                            Product ID
+                        </th>
+                        <th>
+                            Product Name
+                        </th>
+                        <th>
+                            Product Supplier
+                        </th>
+                        <th>
+                            Product Description
+                        </th>
+                        <th>
+                            Product Price
+                        </th>
+                        <th>
+                            Product Quantity
+                        </th>
+                      </tr>
+                      <!-- column data -->
+                      <c:forEach var="row" items="${result.rowsByIndex}">
+                          <tr>
+                              <c:forEach var="column" items="${row}">
+                                  <td><c:out value="${column}"/></td>
+                              </c:forEach>
+                          </tr>
+                      </c:forEach>
+                  </table>
               </div><!-- /jumbotron -->
-              
           </div> <!-- /container -->
-          
+           
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

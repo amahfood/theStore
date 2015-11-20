@@ -5,17 +5,19 @@
     Created on : Nov 15, 2015, 1:49:45 PM
     Author     : Abby & Patrick
 --%>
- <sql:query var="userQuery" dataSource="jdbc/mudkip">
+   
+<sql:query var="userQuery" dataSource="jdbc/mudkip">
     SELECT * FROM user
     WHERE user.userEmail = ? <sql:param value="${param.userEmail}"/>
-</sql:query>   
+</sql:query>
 <c:set var="userDetails" value="${userQuery.rows[0]}"/>
 
-<sql:query var="prodQuery" dataSource="jdbc/mudkip">
-    SELECT * FROM product
-    WHERE product.prodName = ? <sql:param value="${param.userEmail}"/>
+<sql:query var="result" dataSource="jdbc/mudkip">
+    SELECT prodID, prodName, supName, prodDesc, prodPrice, prodQuant  FROM product, supplier
+    WHERE product.supID = supplier.supID AND product.active='1' AND product.prodName = ? <sql:param value="${param.prodName}"/>
 </sql:query>
-<c:set var="prodDetails" value="${prodQuery.rows[0]}"/>
+<c:set var="prodDetails" value="${result.rows[0]}"/>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -53,28 +55,31 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.jsp">Home</a></li>
+              <form action="returnStore">
+                  <li class="active"><input type="submit" value="Home" /></li>
+                  <div class="hidden">
+                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                    </div>
+              </form>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="signup.jsp">Signup</a></li>
-<!--            <li class="active"><a href="./">Static top <span class="sr-only">(current)</span></a></li>-->
-            <li><a href="login.jsp">Login</a></li>
+            <form action="profileInfo">
+                <input type="submit" value="${userDetails.userName}'s Profile" />
+                <div class="hidden">
+                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                </div>
+            </form>
+            <li><a href="logout.jsp">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
 
     <div class="container">
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="container">
               <div class="jumbotron">
-                <sql:query var="result" dataSource="jdbc/mudkip">
-                      SELECT prodID, prodName, supName, prodDesc, prodPrice, prodQuant  FROM product, supplier
-                      WHERE product.supID = supplier.supID AND product.active='1' AND product.prodName = ? <sql:param value="${param.prodName}"/>
-                  </sql:query>
-                  <c:set var="prodDetails" value="${result.rows[0]}"/>
                   <h2>${prodDetails.prodName}</h2>
                       <br><strong>Product ID: </strong> ${prodDetails.prodID}</br>
                       <br><strong>Product Name: </strong> ${prodDetails.prodName}</br>

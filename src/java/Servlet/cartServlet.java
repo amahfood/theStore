@@ -39,7 +39,7 @@ public class cartServlet extends HttpServlet {
         String userEmail = request.getParameter("userEmail");
 
         
-        System.out.println("The user is: " + userEmail);
+        System.out.println("CartServlet: The user is: " + userEmail);
         
         
         //Declaring classes required for Database support
@@ -119,3 +119,4 @@ public class cartServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+

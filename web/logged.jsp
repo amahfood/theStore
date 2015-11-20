@@ -46,7 +46,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.jsp">Home</a></li>
+              <form action="returnStore">
+                  <li class="active"><input type="submit" value="Home" /></li>
+                  <div class="hidden">
+                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                    </div>
+              </form>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <form action="profileInfo">
@@ -77,17 +82,23 @@
                 <tr>
                     <td>
                         <strong>Search for an Active Product</strong>
-                        <form action="productSearch.jsp">
+                        <form action="productSearchServlet">
                             <input type="text" name="prodName" id="prodName" value="" />
                             <input type="submit" id="prodName" value="Search Products" name="submit"/>
+                            <div class="hidden">
+                                <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                            </div>
                         </form>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <strong>Or List All Active Products in Stock</strong>
-                        <form action="allProducts.jsp">
+                        <form action="ListAllServlet">
                             <input type="submit" value="List All Products" name="submit"/>
+                            <div class="hidden">
+                                <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                            </div>
                         </form>
                     </td>
                     

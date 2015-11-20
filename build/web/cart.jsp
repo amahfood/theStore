@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : cart
     Created on : Nov 15, 2015, 8:49:24 PM
@@ -7,8 +9,8 @@
     SELECT * FROM user
     WHERE user.userEmail = ? <sql:param value="${param.userEmail}"/>
 </sql:query>
-
 <c:set var="userDetails" value="${userQuery.rows[0]}"/>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -57,12 +59,11 @@
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h2>Will Display Cart</h2>
         <table border="1">
             <thead>
                 <tr>
                     <th>
-                        <h2>Your Shopping Cart</h2>
+                        <h2>${userDetails.userName}'s Shopping Cart</h2>
                     </th>
                 </tr>
             </thead>

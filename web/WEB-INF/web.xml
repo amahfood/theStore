@@ -32,6 +32,10 @@
         <servlet-name>cartServlet</servlet-name>
         <servlet-class>Servlet.cartServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListAllServlet</servlet-name>
+        <servlet-class>Servlet.ListAllServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>storeServlet</servlet-name>
         <url-pattern>/storeServlet</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>cartServlet</servlet-name>
         <url-pattern>/cartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListAllServlet</servlet-name>
+        <url-pattern>/ListAllServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

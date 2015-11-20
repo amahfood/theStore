@@ -48,7 +48,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.jsp">Home</a></li>
+              <form action="returnStore">
+                  <li class="active"><input type="submit" value="Home" /></li>
+                  <div class="hidden">
+                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                    </div>
+              </form>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <form action="profileInfo">
@@ -123,7 +128,7 @@
                                     
                                 </c:when>
                                 <c:when test="${userDetails.staff == 'Customer'}">
-                                    <form action="cartServlet" method="get">
+                                    <form action="cartServlet">
                                         <input type="submit" value="View Order" />
                                         <div class="hidden">
                                             <input type="text" name="userEmail" value="${userDetails.userEmail}" />

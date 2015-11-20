@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 
-public class productSearchServlet extends HttpServlet {
+public class ListAllServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,11 +37,8 @@ public class productSearchServlet extends HttpServlet {
         
         
         //Get user_name and password from jsp page
-        String productName = request.getParameter("prodName");
         String userEmail = request.getParameter("userEmail");
 
-        
-        System.out.println("prodSearchServ: The product name is: " + productName);
         System.out.println("prodSearchServ: The user name is: " + userEmail);
         
         try{
@@ -56,7 +53,7 @@ public class productSearchServlet extends HttpServlet {
             
             //Add the data into the database
             
-            String sql = "SELECT * FROM product, user WHERE product.prodName=? AND user.userEmail=?;";
+            String sql = "SELECT * FROM user WHERE user.userEmail=?;";
             PreparedStatement prep = null;
             try{
                 prep = connection.prepareStatement(sql);
@@ -64,12 +61,11 @@ public class productSearchServlet extends HttpServlet {
                 System.out.println("Error is: " + E.getMessage());
             }
             
-            prep.setString(1, productName);
-            prep.setString(2, userEmail);
+            prep.setString(1, userEmail);
             prep.executeQuery();;
             prep.close();
             connection.close();
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/loggedProdSearch.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/loggedListAllProd.jsp");
             requestDispatcher.forward(request, response);
                     
         } catch(Exception E){

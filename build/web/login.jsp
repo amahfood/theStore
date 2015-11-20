@@ -55,7 +55,7 @@
     <div class="container">
         <div class="jumbotron">
 
-    <form class="form-signin" action="profile.jsp">
+    <form class="form-signin" action="loginServlet" method="post">
       <h2 class="form-signin-heading">Please sign in</h2>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="userEmail" required autofocus>

@@ -17,12 +17,6 @@
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
     </head>
     <body>
             <!-- Static navbar -->
@@ -49,27 +43,31 @@
             </div><!--/.nav-collapse -->
           </div>
         </nav>
+            
+            
+            
             <div class="container">
                 <div class="jumbotron">
-                <form class="form-signin" action="profile.jsp" method="post">
+                <form class="form-signin" action="storeServlet" method="post">
                   <h2 class="form-signin-heading">Sign Up For An Account</h2>
                   <label for="inputName" class="sr-only">Name</label>
                   <input type="text" id="inputName" class="form-control" placeholder="Name" name="userName" required autofocus>
-                  <label for="inputEmail" class="sr-only">Email address</label>
-                  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="userEmail" required autofocus>
+                  <label for="inputEmail" class="sr-only">Email</label>
+                  <input type="email" id="inputEmail" class="form-control" placeholder="Email" name="userEmail" required autofocus>
                   <label for="inputPassword" class="sr-only">Password</label>
                   <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="userPass" required>
                   <label for="inputAddr" class="sr-only">Address</label>
                   <input type="text" id="inputAddr" class="form-control" placeholder="Address" name="userAddr" required>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value="is_staff" name="is_staff"> Are you an Employee?
-                    </label>
+                  <select name="staff" id="inputstaff" class="form-control" name="staff" required>
+                      <option>Staff</option>
+                      <option>Customer</option>
+                  </select>
                   </div>
                   <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Submit</button>
                 </form>
-
             </div> <!-- /jumbotron -->
             </div> <!-- /container -->
+            
+            
     </body>
 </html>

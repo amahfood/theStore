@@ -65,28 +65,29 @@
       <div class="jumbotron">
         <h2>Welcome to the Store!</h2>
 
-        <table border="0">
+        <table cellspacing="200" border="0" >
             <thead>
                 <tr>
-                    <th>The Store provides many products.</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>To view a product, select it below:</td>
+                    <td>
+                        <strong>Search for an Active Product</strong>
+                        <form action="productSearch.jsp">
+                            <input type="text" name="prodName" id="prodName" value="" />
+                            <input type="submit" id="prodName" value="Search Products" name="submit"/>
+                        </form>
+                    </td>
                 </tr>
                 <tr>
                     <td>
-                        <form action="response.jsp">
-                            <strong>Select a product:</strong>
-                            <select name="prodID">
-                                <c:forEach var="row" items="${product.rows}">
-                                    <option value="${row.prodID}">${row.prodName}</option>
-                                </c:forEach>
-                            </select>
-                            <input type="submit" value="submit" name="submit" />
+                        <strong>Or List All Active Products in Stock</strong>
+                        <form action="allProducts.jsp">
+                            <input type="submit" value="List All Products" name="submit"/>
                         </form>
                     </td>
+                    
                 </tr>
             </tbody>
         </table>

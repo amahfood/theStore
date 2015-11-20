@@ -9,7 +9,6 @@
 <sql:query var="userQuery" dataSource="jdbc/mudkip">
     SELECT * FROM user
     WHERE user.userEmail = ? <sql:param value="${param.userEmail}"/>
-    AND user.userPass = ? <sql:param value="${param.userPass}"/>
 </sql:query>
 
 <c:set var="userDetails" value="${userQuery.rows[0]}"/>
@@ -35,33 +34,34 @@
         <title>${userDetails.userName}'s Profile</title>
     </head>
     <body>
-                <!-- Static navbar -->
-        <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand">Database Project</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="index.jsp">Home</a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="signup.jsp">Signup</a></li>
-    <!--            <li class="active"><a href="./">Static top <span class="sr-only">(current)</span></a></li>-->
-                <li><a href="login.jsp">Login</a></li>
-                <c:if test="!${userDetails.staff}">
-                    <li><a href="cart.jsp">Cart</a></li>
-                </c:if>
-              </ul>
-            </div><!--/.nav-collapse -->
-          </div>
-        </nav>
+ <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">Database Project</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.jsp">Home</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <form action="profileInfo">
+                <input type="submit" value="${userDetails.userName}'s Profile" />
+                <div class="hidden">
+                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                </div>
+            </form>
+            <li><a href="logout.jsp">Logout</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
                 
       <div class="container">
 
@@ -88,12 +88,15 @@
                 </tr>
                 <tr>
                     <td><strong>Member Status:</strong>
-                        <c:if test="${userDetails.staff}">
+                        <c:choose>
+                            <c:when test="${userDetails.staff == 'Staff'}">
                             Active Staff Member
-                        </c:if>
-                        <c:if test="!${userDetails.staff}">
+                            </c:when>
+                            <c:when test="${userDetails.staff == 'Customer'}">
                             Active Store Member
-                        </c:if>
+                            </c:when>
+                        </c:choose>
+                        
                     </td>
                 </tr>
                 <c:if test="!${userDetails.staff}">
@@ -102,22 +105,34 @@
                     </tr>
                 </c:if>
                 <tr>
-                    <td><strong>User Options:</strong><form action="index.jsp">
+                    <td><strong>User Options:</strong>
+                        <form action="returnStore">
                             <input type="submit" value="Return to the Store" />
+                            <div class="hidden">
+                                <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                            </div>
                         </form>
+                            <c:choose>
+                                <c:when test="${userDetails.staff == 'Staff'}">
+                                    <form action="manageInfo">
+                                        <input type="submit" value="Manage Stock" />
+                                        <div class="hidden">
+                                            <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                        </div>
+                                    </form>
+                                    
+                                </c:when>
+                                <c:when test="${userDetails.staff == 'Customer'}">
+                                    <form action="cartServlet" method="get">
+                                        <input type="submit" value="View Order" />
+                                        <div class="hidden">
+                                            <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                        </div>
+                                    </form>
+                                </c:when>
+                            </c:choose>
+                    </td>
                     
-                    <c:if test="${userDetails.staff}" var="staff">
-                            <form action="manage.jsp">
-                                <input type="submit" value="Manage Stock" />
-                            </form>
-                        </td>
-                    </c:if>
-                    <c:if test="!${userDetails.staff}" var="staff">
-                            <form action="cart.jsp">
-                                <input type="submit" value="View Cart" />
-                            </form>
-                        </td>
-                    </c:if>
                 </tr>
 
             </tbody>

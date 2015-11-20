@@ -120,7 +120,7 @@
                             <c:choose>
                                 <c:when test="${userDetails.staff == 'Staff'}">
                                     <form action="manageInfo">
-                                        <input type="submit" value="Manage Stock" />
+                                        <input type="submit" value="Manage" />
                                         <div class="hidden">
                                             <input type="text" name="userEmail" value="${userDetails.userEmail}" />
                                         </div>

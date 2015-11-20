@@ -36,6 +36,22 @@
         <servlet-name>ListAllServlet</servlet-name>
         <servlet-class>Servlet.ListAllServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>prodManage</servlet-name>
+        <servlet-class>Servlet.prodManage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>empManage</servlet-name>
+        <servlet-class>Servlet.empManage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>custManage</servlet-name>
+        <servlet-class>Servlet.custManage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>supManage</servlet-name>
+        <servlet-class>Servlet.supManage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>storeServlet</servlet-name>
         <url-pattern>/storeServlet</url-pattern>
@@ -71,6 +87,22 @@
     <servlet-mapping>
         <servlet-name>ListAllServlet</servlet-name>
         <url-pattern>/ListAllServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>prodManage</servlet-name>
+        <url-pattern>/prodManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>empManage</servlet-name>
+        <url-pattern>/empManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>custManage</servlet-name>
+        <url-pattern>/custManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>supManage</servlet-name>
+        <url-pattern>/supManage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

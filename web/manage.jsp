@@ -17,16 +17,24 @@
 </sql:query>
 
 
-<sql:query var="supQuery" dataSource="jdbc/mudkip">
+<sql:query var="sup" dataSource="jdbc/mudkip">
     SELECT * FROM supplier
 </sql:query>
 
-<c:set var="supDetails" value="${supQuery.rows[0]}"/>
 
-<sql:query var="OrderQuery" dataSource="jdbc/mudkip">
-    SELECT * FROM orders
+<sql:query var="order" dataSource="jdbc/mudkip">
+    SELECT * FROM orderr
 </sql:query>
-<c:set var="orderDetails" value="${OrderQuery.rows[0]}"/>
+    
+<sql:query var="staff" dataSource="jdbc/mudkip">
+    SELECT * FROM user
+    WHERE staff='Staff'
+</sql:query>
+    
+<sql:query var="cust" dataSource="jdbc/mudkip">
+    SELECT * FROM user
+    WHERE staff='Customer'
+</sql:query>
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -40,13 +48,6 @@
 
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
         <title>Manage Stock</title>
     </head>
     <body>
@@ -85,43 +86,81 @@
     </nav>
                 
       <div class="container">
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-          <h2>Stock</h2>
-          <h5>Select Product to view</h5>
-          <form>
-                <strong>Select a product:</strong>
-                    <select name="prodID">
-                        <c:forEach var="row" items="${product.rows}">
-                            <option value="${row.prodID}">${row.prodName} : ${row.prodID}</option>
-                        </c:forEach>
-                    </select>
-           </form>
-                <div value="${stockDetails.prodID}">
-                    <br><strong>Product ID</strong>: ${stockDetails.prodID}</br>
-                    <br><strong>Product Name</strong>: ${stockDetails.prodName}</br>
-                    <br><strong>Product Supplier</strong>: ${stockDetails.supID}</br>
-                    <br><strong>Product Description</strong>: ${stockDetails.prodDesc}</br>
-                    <br><strong>Product Activity</strong>: ${stockDetails.active}</br>
-                    <br><strong>Product Price</strong>: ${stockDetails.prodPrice}</br>
-                    <br><strong>Product Availability</strong>: ${stockDetails.prodQuant}</br>
-                    <br>---------------------------------------------------------------</br>
-                </div>
-        <h2>Suppliers</h2>
-                <div value="${supDetails.supID}">
-                    <br><strong>Supplier ID</strong>: ${stockDetails.supID}</br>
-                    <br><strong>Supplier Name</strong>: ${stockDetails.supName}</br>
-                    <br>---------------------------------------------------------------</br>
-                </div>
-        <h2>Orders</h2>
-                <div value="${orderDetails.orderID}">
-                    <br><strong>Order ID</strong>: ${orderDetails.orderID}</br>
-                    <br><strong>Order Date</strong>: ${orderDetails.orderDate}</br>
-                    <br><strong>Order Paid</strong>: ${orderDetails.orderPaid}</br>
-                    <br>---------------------------------------------------------------</br>
-                </div>
-      </div>
+        <div class="jumbotron">
+            <h2>Management</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Stock</th>
+                        <th>Employees</th>
+                        <th>Customers</th>
+                        <th>Suppliers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Select Product to Edit</td>
+                        <td>Select an Employee to Edit</td>
+                        <td>Select a Customer to Edit</td>
+                        <td>Select a Supplier to Edit</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form action="prodManage">
+                                <select name="prodID">
+                                    <c:forEach var="row" items="${product.rows}">
+                                        <option value="${row.prodID}">${row.prodName} : ${row.prodID}</option>
+                                    </c:forEach>
+                                </select>
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                <input type="submit" name="prodName" value="Manage Product" />
+                            </form> 
+                        </td>
+                        <td>
+                            <form action="empManage">
+                                <select name="prodID">
+                                    <c:forEach var="row" items="${staff.rows}">
+                                        <option name="staffID" value="${row.userID}">${row.userName} : ${row.userID}</option>
+                                    </c:forEach>
+                                </select>
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                <input type="submit" name="userName" value="Manage Employee" />
+                            </form>
+                        </td>
+                        <td>
+                            <form action="custManage">
+                                <select name="prodID">
+                                    <c:forEach var="row" items="${cust.rows}">
+                                        <option name="custID" value="${row.userID}">${row.userName} : ${row.userID}</option>
+                                    </c:forEach>
+                                </select>
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                <input type="submit" name="userName" value="Manage Customer" />
+                            </form>
+                        </td>
+                        <td>
+                            <form action="supManage">
+                                <select name="supID">
+                                    <c:forEach var="row" items="${sup.rows}">
+                                        <option name="supID" value="${row.supID}">${row.supName} : ${row.supID}</option>
+                                    </c:forEach>
+                                </select>
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                <input type="submit" name="supName" value="Manage Supplier" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
       </div>
     </body>
 </html>

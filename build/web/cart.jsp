@@ -26,7 +26,7 @@
         <title>Cart</title>
     </head>
     <body>
-    <!-- Static navbar -->
+     <!-- Static navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -40,7 +40,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.jsp">Home</a></li>
+              <form action="returnStore">
+                  <li class="active"><input type="submit" value="Home" /></li>
+                  <div class="hidden">
+                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                    </div>
+              </form>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <form action="profileInfo">
@@ -75,8 +80,11 @@
                 </tr>
                 <tr>
                     <td>
-                        <form action="logged.jsp">
-                            <input type="submit" value="Return to Store" />
+                        <form action="returnStore">
+                            <input type="submit" value="Return to the Store" />
+                            <div class="hidden">
+                                <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                            </div>
                         </form>
                     </td>
                 </tr>

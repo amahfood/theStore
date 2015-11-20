@@ -1,8 +1,16 @@
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%-- 
     Document   : manage.jsp
     Created on : Nov 16, 2015, 9:01:02 AM
     Author     : Abby & Patrick
 --%>
+<sql:query var="userQuery" dataSource="jdbc/mudkip">
+    SELECT * FROM user
+    WHERE user.userEmail = ? <sql:param value="${param.userEmail}"/>
+</sql:query>
+<c:set var="userDetails" value="${userQuery.rows[0]}"/>
 
 <sql:query var="product" dataSource="jdbc/mudkip">
     SELECT * FROM product
@@ -16,9 +24,8 @@
 <c:set var="supDetails" value="${supQuery.rows[0]}"/>
 
 <sql:query var="OrderQuery" dataSource="jdbc/mudkip">
-    SELECT * FROM Order
+    SELECT * FROM orders
 </sql:query>
-
 <c:set var="orderDetails" value="${OrderQuery.rows[0]}"/>
 
 
@@ -43,30 +50,39 @@
         <title>Manage Stock</title>
     </head>
     <body>
-                <!-- Static navbar -->
-        <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand">Database Project</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="index.jsp">Home</a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="signup.jsp">Signup</a></li>
-    <!--            <li class="active"><a href="./">Static top <span class="sr-only">(current)</span></a></li>-->
-                <li><a href="login.jsp">Login</a></li>
-              </ul>
-            </div><!--/.nav-collapse -->
-          </div>
-        </nav>
+         <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">Database Project</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              <form action="returnStore">
+                  <li class="active"><input type="submit" value="Home" /></li>
+                  <div class="hidden">
+                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                    </div>
+              </form>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <form action="profileInfo">
+                <input type="submit" value="${userDetails.userName}'s Profile" />
+                <div class="hidden">
+                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                </div>
+            </form>
+            <li><a href="logout.jsp">Logout</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
                 
       <div class="container">
 

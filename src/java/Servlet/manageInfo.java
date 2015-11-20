@@ -69,7 +69,7 @@ public class manageInfo extends HttpServlet {
             prep.executeQuery();
             prep.close();
             connection.close();
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/profile.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/manage.jsp");
             requestDispatcher.forward(request, response);
                     
         } catch(Exception E){

@@ -5,11 +5,6 @@
     Created on : Nov 15, 2015, 1:49:45 PM
     Author     : Abby & Patrick
 --%>
- <sql:query var="userQuery" dataSource="jdbc/mudkip">
-    SELECT * FROM user
-    WHERE user.userEmail = ? <sql:param value="${param.userEmail}"/>
-</sql:query>   
-<c:set var="userDetails" value="${userQuery.rows[0]}"/>
 
 <sql:query var="prodQuery" dataSource="jdbc/mudkip">
     SELECT * FROM product

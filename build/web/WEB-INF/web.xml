@@ -52,6 +52,18 @@
         <servlet-name>supManage</servlet-name>
         <servlet-class>Servlet.supManage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addProdServlet</servlet-name>
+        <servlet-class>Servlet.addProdServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addSupServlet</servlet-name>
+        <servlet-class>Servlet.addSupServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addStaffServlet</servlet-name>
+        <servlet-class>Servlet.addStaffServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>storeServlet</servlet-name>
         <url-pattern>/storeServlet</url-pattern>
@@ -103,6 +115,18 @@
     <servlet-mapping>
         <servlet-name>supManage</servlet-name>
         <url-pattern>/supManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addProdServlet</servlet-name>
+        <url-pattern>/addProdServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addSupServlet</servlet-name>
+        <url-pattern>/addSupServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addStaffServlet</servlet-name>
+        <url-pattern>/addStaffServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

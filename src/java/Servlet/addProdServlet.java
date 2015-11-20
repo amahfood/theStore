@@ -22,7 +22,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 
-public class ListAllServlet extends HttpServlet {
+public class addProdServlet extends HttpServlet {
+    int ID;
+    int active = 1;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,8 +40,17 @@ public class ListAllServlet extends HttpServlet {
         
         //Get user_name and password from jsp page
         String userEmail = request.getParameter("userEmail");
+        String prodName = request.getParameter("prodName");
+        String supID = request.getParameter("supID");
+        String prodDesc = request.getParameter("prodDesc");
+        String prodPrice = request.getParameter("prodPrice");
+        String prodQuant = request.getParameter("prodQuant");
 
-        System.out.println("prodSearchServ: The user name is: " + userEmail);
+        System.out.println("Add Prod Servlet: The user is: " + userEmail);
+        System.out.println("Add Prod Servlet: The product is: " + prodName);
+              
+        //Declaring classes required for Database support
+        
         
         try{
             Connection connection = null;
@@ -53,19 +64,40 @@ public class ListAllServlet extends HttpServlet {
             
             //Add the data into the database
             
-            String sql = "SELECT * FROM user WHERE userEmail=?;";
+            String maxID = "SELECT MAX(prodID) AS maxID FROM product;";
+            String sql = "insert into product values (?,?,?,?,?,?,?);";
+            String user = "Select * from user Where user.userEmail = ?;";
             PreparedStatement prep = null;
+            PreparedStatement prep1 = null;
+            PreparedStatement prep2 = null;
             try{
                 prep = connection.prepareStatement(sql);
+                prep1 = connection.prepareStatement(maxID);
+                prep2 = connection.prepareStatement(user);
             } catch(Exception E){
                 System.out.println("Error is: " + E.getMessage());
             }
             
-            prep.setString(1, userEmail);
-            prep.executeQuery();;
+            ResultSet rs = prep1.executeQuery();
+            rs.next();
+            ID = rs.getInt(1) + 1;
+
+            
+            //Setting the values which we got from the JSP form
+            prep.setInt(1, ID);
+            prep.setString(2, prodName);
+            prep.setString(3, supID);
+            prep.setString(4, prodDesc);
+            prep.setInt(5, active);
+            prep.setString(6, prodPrice);
+            prep.setString(7, prodQuant);
+            prep2.setString(1, userEmail);
+            prep.executeUpdate();
+            prep2.executeQuery();
             prep.close();
+            prep1.close();
             connection.close();
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/loggedListAllProd.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/manage.jsp");
             requestDispatcher.forward(request, response);
                     
         } catch(Exception E){

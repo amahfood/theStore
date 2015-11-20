@@ -6,8 +6,8 @@
     Author     : Abby & Patrick
 --%>
 <sql:query var="userQuery" dataSource="jdbc/mudkip">
-    SELECT * FROM user, product
-    WHERE user.userEmail = ? <sql:param value="${param.userEmail}"/> AND product.prodID = ? <sql:param value="${param.prodID}"/>
+    SELECT * FROM user
+    WHERE userEmail = ? <sql:param value="${param.userEmail}"/>
 </sql:query>
 <c:set var="Details" value="${userQuery.rows[0]}"/>
 
@@ -66,64 +66,21 @@
       </div>
     </nav>
 
-
-    <div class="container">
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
- <h2>Management</h2>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <h3>${Details.prodName} Details</h3>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Product ID</strong></td>
-                        <td><strong>Product Name</strong></td>
-                        <td><strong>Product Supplier ID</strong></td>
-                        <td><strong>Product Description</strong></td>
-                        <td><strong>Product Activity</strong></td>
-                        <td><strong>Product Price</strong></td>
-                        <td><strong>Product Stock</strong></td>
-                    </tr>
-                    <tr>
-                        <td>${Details.prodID}</td>
-                        <td>${Details.prodName}</td>
-                        <td>${Details.supID}</td>
-                        <td>${Details.prodDesc}</td>
-                        <td>${Details.active}</td>
-                        <td>${Details.prodPrice}</td>
-                        <td>${Details.prodQuant}</td>
-                    </tr>
-                </tbody>
-            </table>   
-             
-            <form action="prodDel">
-                <input type="submit" value="Delete ${Details.prodName}" />
+            <div class="container">
+                <div class="jumbotron">
+                <form class="form-signin" action="addSupServlet" method="post">
+                  <h2 class="form-signin-heading">Add New Supplier</h2>
+                  <label for="inputName" class="sr-only">Supplier Name</label>
+                  <input type="text" id="inputName" class="form-control" placeholder="Name" name="supName" required autofocus>
+                  </div>
                     <div class="hidden">
                         <input type="text" name="userEmail" value="${Details.userEmail}" />
-                        <input type="text" name="prodID" value="${Details.prodID}" />
                     </div>
-            </form> 
-            <form action="prodEdit">
-                <input type="submit" value="Edit ${Details.prodName}" />
-                <div class="hidden">
-                    <input type="text" name="userEmail" value="${Details.userEmail}" />
-                    <input type="text" name="prodID" value="${Details.prodID}" />
-                </div>
-            </form> 
-      </div>
-
-    </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-  </body>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Submit</button>
+                </form>
+            </div> <!-- /jumbotron -->
+            </div> <!-- /container -->
+            
+            
+    </body>
 </html>
-

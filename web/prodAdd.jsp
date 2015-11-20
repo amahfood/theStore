@@ -6,8 +6,8 @@
     Author     : Abby & Patrick
 --%>
 <sql:query var="userQuery" dataSource="jdbc/mudkip">
-    SELECT * FROM user, product
-    WHERE user.userEmail = ? <sql:param value="${param.userEmail}"/> AND product.prodID = ? <sql:param value="${param.prodID}"/>
+    SELECT * FROM user
+    WHERE userEmail = ? <sql:param value="${param.userEmail}"/>
 </sql:query>
 <c:set var="Details" value="${userQuery.rows[0]}"/>
 
@@ -68,7 +68,7 @@
 
             <div class="container">
                 <div class="jumbotron">
-                <form class="form-signin" action="storeServlet" method="post">
+                <form class="form-signin" action="addProdServlet" method="post">
                   <h2 class="form-signin-heading">Add New Product</h2>
                   <label for="inputName" class="sr-only">Product Name</label>
                   <input type="text" id="inputName" class="form-control" placeholder="Name" name="prodName" required autofocus>
@@ -82,6 +82,9 @@
                   <label for="prodQuant" class="sr-only">Quantity</label>
                   <input type="text" id="inputQuant" class="form-control" placeholder="Product Quantity" name="prodQuant" required>
                   </div>
+                    <div class="hidden">
+                        <input type="text" name="userEmail" value="${Details.userEmail}" />
+                    </div>
                   <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Submit</button>
                 </form>
             </div> <!-- /jumbotron -->

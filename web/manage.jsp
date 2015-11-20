@@ -117,6 +117,12 @@
                                 </div>
                                 <input type="submit" name="prodName" value="Manage Product" />
                             </form> 
+                             <form action="prodAdd.jsp">
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                <input type="submit" value="Add New Product" />
+                            </form>   
                         </td>
                         <td>
                             <form action="empManage">
@@ -130,6 +136,12 @@
                                 </div>
                                 <input type="submit" name="userName" value="Manage Employee" />
                             </form>
+                            <form action="staffAdd.jsp">
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                <input type="submit" value="Add New Staff Member" />
+                            </form> 
                         </td>
                         <td>
                             <form action="custManage">
@@ -143,6 +155,12 @@
                                 </div>
                                 <input type="submit" name="userName" value="Manage Customer" />
                             </form>
+                            <form action="custAdd.jsp">
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                <input type="submit" value="Add New Customer" />
+                            </form> 
                         </td>
                         <td>
                             <form action="supManage">
@@ -156,6 +174,12 @@
                                 </div>
                                 <input type="submit" name="supName" value="Manage Supplier" />
                             </form>
+                             <form action="supAdd.jsp">
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                <input type="submit" value="Add New Supplier" />
+                            </form> 
                         </td>
                     </tr>
                 </tbody>

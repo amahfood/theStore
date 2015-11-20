@@ -75,9 +75,7 @@ public class storeServlet extends HttpServlet {
                 System.out.println("Error is: " + E.getMessage());
             }
             
-            System.out.println("OK1");
             ResultSet rs = prep1.executeQuery();
-            System.out.println("OK2");
             rs.next();
             ID = rs.getInt(1) + 1;
             System.out.println("ID = " + ID);

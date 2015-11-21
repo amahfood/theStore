@@ -97,6 +97,9 @@
                             <c:when test="${userDetails.staff == 'Staff'}">
                             Active Staff Member
                             </c:when>
+                            <c:when test="${userDetails.staff == 'StoreOwner'}">
+                            Store Owner
+                            </c:when>
                             <c:when test="${userDetails.staff == 'Customer'}">
                             Active Store Member
                             </c:when>
@@ -120,7 +123,16 @@
                             <c:choose>
                                 <c:when test="${userDetails.staff == 'Staff'}">
                                     <form action="manageInfo">
-                                        <input type="submit" value="Manage" />
+                                        <input type="submit" value="Manage Store" />
+                                        <div class="hidden">
+                                            <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                        </div>
+                                    </form>
+                                    
+                                </c:when>
+                                <c:when test="${userDetails.staff == 'StoreOwner'}">
+                                    <form action="manageInfo">
+                                        <input type="submit" value="Manage Store" />
                                         <div class="hidden">
                                             <input type="text" name="userEmail" value="${userDetails.userEmail}" />
                                         </div>

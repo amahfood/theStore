@@ -1,15 +1,17 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
-    Document   : prodAdd
+    Document   : userEdit
     Created on : Nov 15, 2015, 1:49:45 PM
     Author     : Abby & Patrick
 --%>
 <sql:query var="userQuery" dataSource="jdbc/mudkip">
     SELECT * FROM user
-    WHERE userEmail = ? <sql:param value="${param.userEmail}"/>
+    WHERE userEmail = ? <sql:param value="${param.userEmail}"/> OR userID = ? <sql:param value="${param.userID}"/>
+    ORDER BY staff
 </sql:query>
-<c:set var="Details" value="${userQuery.rows[0]}"/>
+<c:set var="Details" value="${userQuery.rows[1]}"/>
+<c:set var="userDetails" value="${userQuery.rows[0]}"/>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -68,22 +70,22 @@
 
             <div class="container">
                 <div class="jumbotron">
-                <form class="form-signin" action="addProdServlet" method="post">
-                  <h2 class="form-signin-heading">Add New Product</h2>
-                  <label for="inputName" class="sr-only">Product Name</label>
-                  <input type="text" id="inputName" class="form-control" placeholder="Name" name="prodName" required autofocus>
-                  <label for="inputsup" class="sr-only">Supplier ID</label>
-                  <input type="text" id="inputsup" class="form-control" placeholder="Supplier ID" name="supID" required autofocus>
-                  <label for="inputDesc" class="sr-only">Product Description</label>
-                  <textarea id="inputDesc" name="prodDesc" rows="2" cols="142">Product Description</textarea>
-                  <br><label for="inputActive" class="sr-only">Active</label>
-                  <label for="inputPrice" class="sr-only">Price</label>
-                  <input type="text" id="inputPrice" class="form-control" placeholder="Product Price" name="prodPrice" required>
-                  <label for="prodQuant" class="sr-only">Quantity</label>
-                  <input type="text" id="inputQuant" class="form-control" placeholder="Product Quantity" name="prodQuant" required>
+                <form class="form-signin" action="userEdit" method="post">
+                  <h2 class="form-signin-heading">Edit ${userDetails.userName}'s Account</h2>
+                  <p>User ID ${userDetails.userID}</p>
+                  <p>Order ID ${userDetails.orderID}</p>
+                  <p>User Name</p><input type="text" id="inputName" class="form-control" placeholder="${userDetails.userName}" name="userName" required autofocus>
+                  <p>User Email</p><input type="text" id="inputsup" class="form-control" placeholder="${userDetails.userEmail}" name="editEmail" required autofocus>
+                  <p>User Password</p><input type="text" id="inputsup" class="form-control" placeholder="${userDetails.userPass}" name="userPass" required autofocus>
+                  <p>User Address</p><input type="text" id="inputsup" class="form-control" placeholder="${userDetails.userAddr}" name="userAddr" required autofocus>
+                  <p>User Status <select name="staff">
+                          <option>Customer</option>
+                          <option>Staff</option>
+                      </select></p>
                   </div>
                     <div class="hidden">
                         <input type="text" name="userEmail" value="${Details.userEmail}" />
+                        <input type="text" name="userID" value="${userDetails.userID}" />
                     </div>
                   <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Submit</button>
                 </form>

@@ -1,15 +1,18 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
-    Document   : index
+    Document   : custManage
     Created on : Nov 15, 2015, 1:49:45 PM
     Author     : Abby & Patrick
 --%>
 <sql:query var="userQuery" dataSource="jdbc/mudkip">
-    SELECT * FROM user, product
-    WHERE user.userEmail = ? <sql:param value="${param.userEmail}"/> AND product.prodID = ? <sql:param value="${param.prodID}"/>
+    SELECT * FROM user
+    WHERE userID = ? <sql:param value="${param.userID}"/> OR userEmail = ? <sql:param value="${param.userEmail}"/> 
+    ORDER BY staff
 </sql:query>
-<c:set var="Details" value="${userQuery.rows[0]}"/>
+<c:set var="custDetails" value="${userQuery.rows[0]}"/>
+<c:set var="userDetails" value="${userQuery.rows[1]}"/>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -49,15 +52,15 @@
               <form action="returnStore">
                   <li class="active"><input type="submit" value="Home" /></li>
                   <div class="hidden">
-                        <input type="text" name="userEmail" value="${Details.userEmail}" />
+                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
                     </div>
               </form>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <form action="profileInfo">
-                <input type="submit" value="${Details.userName}'s Profile" />
+                <input type="submit" value="${userDetails.userName}'s Profile" />
                 <div class="hidden">
-                    <input type="text" name="userEmail" value="${Details.userEmail}" />
+                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
                 </div>
             </form>
             <li><a href="logout.jsp">Logout</a></li>
@@ -75,50 +78,43 @@
             <table border="1">
                 <thead>
                     <tr>
-                        <h3>${Details.prodName} Details</h3>
+                        <h3>${custDetails.userName}'s Details</h3>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Product ID</strong></td>
-                        <td><strong>Product Name</strong></td>
-                        <td><strong>Product Supplier ID</strong></td>
-                        <td><strong>Product Description</strong></td>
-                        <td><strong>Product Activity</strong></td>
-                        <td><strong>Product Price</strong></td>
-                        <td><strong>Product Stock</strong></td>
+                        <td><strong>User ID</strong></td>
+                        <td><strong>User Name</strong></td>
+                        <td><strong>User Order ID</strong></td>
+                        <td><strong>User Email</strong></td>
+                        <td><strong>User Password</strong></td>
+                        <td><strong>User Address</strong></td>
+                        <td><strong>User Status</strong></td>
                     </tr>
                     <tr>
-                        <td>${Details.prodID}</td>
-                        <td>${Details.prodName}</td>
-                        <td>${Details.supID}</td>
-                        <td>${Details.prodDesc}</td>
-                        <td>${Details.active}</td>
-                        <td>${Details.prodPrice}</td>
-                        <td>${Details.prodQuant}</td>
+                        <td>${custDetails.userID}</td>
+                        <td>${custDetails.userName}</td>
+                        <td>${custDetails.orderID}</td>
+                        <td>${custDetails.userEmail}</td>
+                        <td>${custDetails.userPass}</td>
+                        <td>${custDetails.userAddr}</td>
+                        <td>${custDetails.staff}</td>
                     </tr>
                 </tbody>
             </table>   
              
-            <form action="prodDel">
-                <input type="submit" value="Delete ${Details.prodName}" />
+            <form action="custDel">
+                <input type="submit" value="Delete ${custDetails.userName}'s Account" />
                     <div class="hidden">
-                        <input type="text" name="userEmail" value="${Details.userEmail}" />
-                        <input type="text" name="prodID" value="${Details.prodID}" />
+                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                        <input type="text" name="userID" value="${custDetails.userID}" />
                     </div>
             </form> 
-            <form action="prodEdit.jsp">
-                <input type="submit" value="Edit ${Details.prodName}" />
+            <form action="userEdit.jsp">
+                <input type="submit" value="Edit ${custDetails.userName}'s Account" />
                 <div class="hidden">
-                    <input type="text" name="userEmail" value="${Details.userEmail}" />
-                    <input type="text" name="prodID" value="${Details.prodID}" />
-                </div>
-            </form> 
-            <form action="prodOrderMan.jsp">
-                <input type="submit" value="Order More ${Details.prodName}" />
-                <div class="hidden">
-                    <input type="text" name="userEmail" value="${Details.userEmail}" />
-                    <input type="text" name="prodID" value="${Details.prodID}" />
+                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                    <input type="text" name="userID" value="${custDetails.userID}" />
                 </div>
             </form> 
       </div>

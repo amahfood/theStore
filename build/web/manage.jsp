@@ -26,15 +26,21 @@
     SELECT * FROM orderr
 </sql:query>
     
-<sql:query var="staff" dataSource="jdbc/mudkip">
+<sql:query var="user" dataSource="jdbc/mudkip">
     SELECT * FROM user
-    WHERE staff='Staff'
+    WHERE user.staff != 'StoreOwner'
+    ORDER BY staff
 </sql:query>
     
-<sql:query var="cust" dataSource="jdbc/mudkip">
-    SELECT * FROM user
-    WHERE staff='Customer'
+<sql:query var="orderDetail" dataSource="jdbc/mudkip">
+    SELECT * FROM orders
 </sql:query>
+    
+ <sql:query var="orderDisplay" dataSource="jdbc/mudkip">
+    SELECT * FROM orders, orderr, user
+    WHERE orders.orderID = orderr.orderID AND orders.userID = user.userID
+</sql:query>
+
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -88,21 +94,27 @@
       <div class="container">
         <div class="jumbotron">
             <h2>Management</h2>
+            <c:set var="staff" scope="page" value="${userDetails.staff}"/>
+            
             <table border="1">
                 <thead>
                     <tr>
                         <th>Stock</th>
-                        <th>Employees</th>
-                        <th>Customers</th>
+                        <c:if test="${staff == 'StoreOwner'}">
+                               <th>Users</th>
+                        </c:if>
                         <th>Suppliers</th>
+                        <th>Orders</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Select Product to Edit</td>
-                        <td>Select an Employee to Edit</td>
-                        <td>Select a Customer to Edit</td>
-                        <td>Select a Supplier to Edit</td>
+                        <td>Select Product</td>
+                        <c:if test="${staff == 'StoreOwner'}">
+                            <td>Select a User</td>
+                        </c:if>
+                        <td>Select a Supplier</td>
+                        <td>Select an Order</td>
                     </tr>
                     <tr>
                         <td>
@@ -124,46 +136,30 @@
                                 <input type="submit" value="Add New Product" />
                             </form>   
                         </td>
+                        <c:if test="${staff == 'StoreOwner'}">
+                            <td>
+                                <form action="custManage.jsp">
+                                    <select name="userID">
+                                        <c:forEach var="row" items="${user.rows}">
+                                            <option name="userID" value="${row.userID}">${row.userName} : ${row.userID} : ${row.staff}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <div class="hidden">
+                                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                    </div>
+                                    <input type="submit" name="cust" value="Manage User" />
+                                </form>
+                                <form action="custAdd.jsp">
+                                    <div class="hidden">
+                                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                    </div>
+                                    <input type="submit" value="Add New User" />
+                                </form>
+                            </td>
+                        </c:if>
+
                         <td>
-                            <form action="empManage">
-                                <select name="prodID">
-                                    <c:forEach var="row" items="${staff.rows}">
-                                        <option name="staffID" value="${row.userID}">${row.userName} : ${row.userID}</option>
-                                    </c:forEach>
-                                </select>
-                                <div class="hidden">
-                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
-                                </div>
-                                <input type="submit" name="userName" value="Manage Employee" />
-                            </form>
-                            <form action="staffAdd.jsp">
-                                <div class="hidden">
-                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
-                                </div>
-                                <input type="submit" value="Add New Staff Member" />
-                            </form> 
-                        </td>
-                        <td>
-                            <form action="custManage">
-                                <select name="prodID">
-                                    <c:forEach var="row" items="${cust.rows}">
-                                        <option name="custID" value="${row.userID}">${row.userName} : ${row.userID}</option>
-                                    </c:forEach>
-                                </select>
-                                <div class="hidden">
-                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
-                                </div>
-                                <input type="submit" name="userName" value="Manage Customer" />
-                            </form>
-                            <form action="custAdd.jsp">
-                                <div class="hidden">
-                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
-                                </div>
-                                <input type="submit" value="Add New Customer" />
-                            </form> 
-                        </td>
-                        <td>
-                            <form action="supManage">
+                            <form action="supDel">
                                 <select name="supID">
                                     <c:forEach var="row" items="${sup.rows}">
                                         <option name="supID" value="${row.supID}">${row.supName} : ${row.supID}</option>
@@ -172,7 +168,7 @@
                                 <div class="hidden">
                                     <input type="text" name="userEmail" value="${userDetails.userEmail}" />
                                 </div>
-                                <input type="submit" name="supName" value="Manage Supplier" />
+                                <input type="submit" name="supName" value="Delete Supplier" />
                             </form>
                              <form action="supAdd.jsp">
                                 <div class="hidden">
@@ -180,6 +176,19 @@
                                 </div>
                                 <input type="submit" value="Add New Supplier" />
                             </form> 
+                        </td>
+                        <td>
+                            <form action="orderManage.jsp">
+                                <select name="orderID">
+                                    <c:forEach var="row" items="${orderDisplay.rows}">
+                                        <option name="orderID" value="${row.orderID}">Order Number: ${row.orderID} By ${row.staff} ${row.userName}</option>
+                                    </c:forEach>
+                                </select>
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                <input type="submit" name="manOrder" value="Manage Order" />
+                            </form>
                         </td>
                     </tr>
                 </tbody>

@@ -64,6 +64,34 @@
         <servlet-name>addStaffServlet</servlet-name>
         <servlet-class>Servlet.addStaffServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addCustServlet</servlet-name>
+        <servlet-class>Servlet.addCustServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>prodOrderMan</servlet-name>
+        <servlet-class>Servlet.prodOrderMan</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>prodDel</servlet-name>
+        <servlet-class>Servlet.prodDel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>custDel</servlet-name>
+        <servlet-class>Servlet.custDel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>supDel</servlet-name>
+        <servlet-class>Servlet.supDel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>prodEdit</servlet-name>
+        <servlet-class>Servlet.prodEdit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>userEdit</servlet-name>
+        <servlet-class>Servlet.userEdit</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>storeServlet</servlet-name>
         <url-pattern>/storeServlet</url-pattern>
@@ -127,6 +155,34 @@
     <servlet-mapping>
         <servlet-name>addStaffServlet</servlet-name>
         <url-pattern>/addStaffServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addCustServlet</servlet-name>
+        <url-pattern>/addCustServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>prodOrderMan</servlet-name>
+        <url-pattern>/prodOrderMan</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>prodDel</servlet-name>
+        <url-pattern>/prodDel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>custDel</servlet-name>
+        <url-pattern>/custDel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>supDel</servlet-name>
+        <url-pattern>/supDel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>prodEdit</servlet-name>
+        <url-pattern>/prodEdit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>userEdit</servlet-name>
+        <url-pattern>/userEdit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

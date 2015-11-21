@@ -22,9 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 
-public class storeServlet extends HttpServlet {
-    int ID;
-    int orderNum;
+public class userEdit extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,17 +37,18 @@ public class storeServlet extends HttpServlet {
         
         
         //Get user_name and password from jsp page
-        String mudkipfirst = request.getParameter("userName");
-        String mudkipsecond = request.getParameter("userEmail");
-        String mudkipthird = request.getParameter("userAddr");
-        String mudkipfifth = request.getParameter("userPass");
-        String mudkipfourth = request.getParameter("staff");
+        String userEmail = request.getParameter("userEmail");
+        String userID = request.getParameter("userID");
+        String userName = request.getParameter("userName");
+        String editEmail = request.getParameter("editEmail");
+        String userPass = request.getParameter("userPass");
+        String userAddr = request.getParameter("userAddr");
+        String staff = request.getParameter("staff");
 
-        
-        System.out.println("The username is: " + mudkipfirst);
-        System.out.println("The staff is: " + mudkipfourth);
-        
-        
+        System.out.println("Edit User Servlet: The user is: " + userEmail);
+        System.out.println("Edit User Servlet: The user is: " + userName);
+        System.out.println("Edit User Servlet: The userID is: " + userID);
+              
         //Declaring classes required for Database support
         
         
@@ -64,43 +63,33 @@ public class storeServlet extends HttpServlet {
             
             
             //Add the data into the database
-            
-            String maxID = "SELECT MAX(userID) AS maxID FROM user;";
-            String maxOrderID = "SELECT MAX(orderID) AS maxorderID FROM user;";
-            String sql = "insert into user values (?,?,?,?,?,?,?);";
+
+            String sql = "UPDATE user SET userName = ?, userEmail = ?, userPass = ?, userAddr = ?, staff = ? WHERE userID = ?";
+            String user = "Select * from user Where user.userEmail = ?;";
             PreparedStatement prep = null;
-            PreparedStatement prep1 = null;
             PreparedStatement prep2 = null;
             try{
                 prep = connection.prepareStatement(sql);
-                prep1 = connection.prepareStatement(maxID);
-                prep2 = connection.prepareStatement(maxOrderID);
+                prep2 = connection.prepareStatement(user);
             } catch(Exception E){
                 System.out.println("Error is: " + E.getMessage());
             }
             
-            ResultSet rs = prep1.executeQuery();
+            prep2.setString(1, userEmail);
+            ResultSet rs = prep2.executeQuery();
             rs.next();
-            ID = rs.getInt(1) + 1;
-            System.out.println("ID = " + ID);
-            
-            ResultSet rs1 = prep2.executeQuery();
-            rs1.next();
-            orderNum = rs.getInt(1) + 1;
-            System.out.println("ID = " + ID);
             
             //Setting the values which we got from the JSP form
-            prep.setInt(1, ID);
-            prep.setString(2, mudkipfirst);
-            prep.setInt(3, orderNum);
-            prep.setString(4, mudkipsecond);
-            prep.setString(5, mudkipfifth);
-            prep.setString(6, mudkipthird);
-            prep.setString(7, mudkipfourth);
+            prep.setString(1, userName);
+            prep.setString(2, editEmail);
+            prep.setString(3, userPass);
+            prep.setString(4, userAddr);
+            prep.setString(5, staff);
+            prep.setString(6, userID);
             prep.executeUpdate();
             prep.close();
             connection.close();
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/profile.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/manage.jsp");
             requestDispatcher.forward(request, response);
                     
         } catch(Exception E){

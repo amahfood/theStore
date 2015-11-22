@@ -78,6 +78,7 @@
                   <sql:query var="result" dataSource="jdbc/mudkip">
                       SELECT prodID, prodName, supName, prodDesc, prodPrice, prodQuant  FROM product, supplier
                       WHERE product.supID = supplier.supID
+                      ORDER BY supName, prodPrice
                   </sql:query>
                   <table border="2">
                       <col width="2000">

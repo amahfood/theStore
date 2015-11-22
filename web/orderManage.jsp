@@ -74,10 +74,7 @@
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
  <h2>Management</h2>
-            <sql:query var="containsQuery" dataSource="jdbc/mudkip">
-                SELECT * FROM contains, user, product, orderr
-                WHERE contains.orderID = ${custDetails.orderID} AND user.orderID = ${custDetails.orderID} AND contains.prodID = product.prodID AND orderr.orderID = ${custDetails.orderID}
-            </sql:query>
+            <c:set var="contains" value="${containsQuery.rows}"/>
             <table border="1">
                 <thead>
                     <tr>
@@ -97,21 +94,48 @@
                     </tr>
                 </tbody>
             </table>
-            <table border="1">
-                <!-- column headers -->
-                <tr>
-                    <th>Product Name</th>
-                    <th>Product Quantity</th>
-                    <th>Amount Paid</th>
-                </tr>
-                <!-- column data -->
-                <c:forEach var="row" items="${containsQuery.rowsByIndex}">
-                    <tr>${containsQuery.prodName}</tr>
-                    <tr>${containsQuery.quant}</tr>
-                    <tr>${containsQuery.orderPaid}</tr>
-                </c:forEach>
-            </table>s
-             
+                <sql:query var="containsQuery" dataSource="jdbc/mudkip">
+                    SELECT product.prodName AS Product, quant AS Quantity, prodPrice*quant AS Cost FROM contains, user, product, orderr
+                    WHERE contains.orderID = ${custDetails.orderID} AND user.orderID = ${custDetails.orderID} AND contains.prodID = product.prodID AND orderr.orderID = ${custDetails.orderID}
+                </sql:query>
+                <table border="1">
+                    <!-- column headers -->
+                    <tr>
+                        <c:forEach var="columnName" items="${containsQuery.columnNames}">
+                            <th><c:out value="${columnName}"/></th>
+                            </c:forEach>
+                    </tr>
+                    <!-- column data -->
+                    <c:forEach var="row" items="${containsQuery.rowsByIndex}">
+                        <tr>
+                            <c:forEach var="column" items="${row}">
+                                <td><c:out value="${column}"/></td>
+                            </c:forEach>
+                        </tr>
+                    </c:forEach>
+                </table>
+                <sql:query var="totalCost" dataSource="jdbc/mudkip">
+                    SELECT SUM(prodPrice*quant) AS Total FROM contains, user, product, orderr
+                    WHERE contains.orderID = ${custDetails.orderID} AND user.orderID = ${custDetails.orderID} AND contains.prodID = product.prodID AND orderr.orderID = ${custDetails.orderID}
+                </sql:query>
+                <table border="1">
+                    <!-- column headers -->
+                    <tr>
+                        <c:forEach var="columnName" items="${totalCost.columnNames}">
+                            <th><c:out value="${columnName}"/></th>
+                            </c:forEach>
+                    </tr>
+                    <!-- column data -->
+                    <c:forEach var="row" items="${totalCost.rowsByIndex}">
+                        <tr>
+                            <c:forEach var="column" items="${row}">
+                                <td><c:out value="${column}"/></td>
+                            </c:forEach>
+                        </tr>
+                    </c:forEach>
+                </table>
+                
+        
             <form action="custDel">
                 <input type="submit" value="Delete Everything in Order" />
                     <div class="hidden">

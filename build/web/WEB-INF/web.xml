@@ -92,6 +92,14 @@
         <servlet-name>userEdit</servlet-name>
         <servlet-class>Servlet.userEdit</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>custEdit</servlet-name>
+        <servlet-class>Servlet.custEdit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>custDelProfile</servlet-name>
+        <servlet-class>Servlet.custDelProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>storeServlet</servlet-name>
         <url-pattern>/storeServlet</url-pattern>
@@ -183,6 +191,14 @@
     <servlet-mapping>
         <servlet-name>userEdit</servlet-name>
         <url-pattern>/userEdit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>custEdit</servlet-name>
+        <url-pattern>/custEdit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>custDelProfile</servlet-name>
+        <url-pattern>/custDelProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -34,129 +34,189 @@
         <title>${userDetails.userName}'s Profile</title>
     </head>
     <body>
- <!-- Static navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand">Database Project</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-              <form action="returnStore">
-                  <li class="active"><input type="submit" value="Home" /></li>
-                  <div class="hidden">
-                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
-                    </div>
-              </form>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <form action="profileInfo">
-                <input type="submit" value="${userDetails.userName}'s Profile" />
-                <div class="hidden">
-                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">Database Project</a>
                 </div>
-            </form>
-            <li><a href="logout.jsp">Logout</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-                
-      <div class="container">
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <table border="1">
-            <thead>
-                <tr>
-                    <th><h3>${userDetails.userName}'s Profile</h3></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>User ID:</strong>${userDetails.userID}</td>
-                </tr>
-                <tr>
-                    <td><strong>User Name:</strong>${userDetails.userName}</td>
-                </tr>
-                <tr>
-                    <td><strong>User Email:</strong>${userDetails.userEmail}</td>
-                </tr>
-                <tr>
-                    <td><strong>User Address:</strong>${userDetails.userAddr}</td>
-                </tr>
-                <tr>
-                    <td><strong>Member Status:</strong>
-                        <c:choose>
-                            <c:when test="${userDetails.staff == 'Staff'}">
-                            Active Staff Member
-                            </c:when>
-                            <c:when test="${userDetails.staff == 'StoreOwner'}">
-                            Store Owner
-                            </c:when>
-                            <c:when test="${userDetails.staff == 'Customer'}">
-                            Active Store Member
-                            </c:when>
-                        </c:choose>
-                        
-                    </td>
-                </tr>
-                <c:if test="!${userDetails.staff}">
-                    <tr>
-                        <td><strong>User OrderID:</strong>${userDetails.orderID}</td>
-                    </tr>
-                </c:if>
-                <tr>
-                    <td><strong>User Options:</strong>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
                         <form action="returnStore">
-                            <input type="submit" value="Return to the Store" />
+                            <li class="active"><input type="submit" value="Home" /></li>
                             <div class="hidden">
                                 <input type="text" name="userEmail" value="${userDetails.userEmail}" />
                             </div>
                         </form>
-                            <c:choose>
-                                <c:when test="${userDetails.staff == 'Staff'}">
-                                    <form action="manageInfo">
-                                        <input type="submit" value="Manage Store" />
-                                        <div class="hidden">
-                                            <input type="text" name="userEmail" value="${userDetails.userEmail}" />
-                                        </div>
-                                    </form>
-                                    
-                                </c:when>
-                                <c:when test="${userDetails.staff == 'StoreOwner'}">
-                                    <form action="manageInfo">
-                                        <input type="submit" value="Manage Store" />
-                                        <div class="hidden">
-                                            <input type="text" name="userEmail" value="${userDetails.userEmail}" />
-                                        </div>
-                                    </form>
-                                    
-                                </c:when>
-                                <c:when test="${userDetails.staff == 'Customer'}">
-                                    <form action="cartServlet">
-                                        <input type="submit" value="View Order" />
-                                        <div class="hidden">
-                                            <input type="text" name="userEmail" value="${userDetails.userEmail}" />
-                                        </div>
-                                    </form>
-                                </c:when>
-                            </c:choose>
-                    </td>
-                    
-                </tr>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <form action="profileInfo">
+                            <input type="submit" value="${userDetails.userName}'s Profile" />
+                            <div class="hidden">
+                                <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                            </div>
+                        </form>
+                        <li><a href="logout.jsp">Logout</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
 
-            </tbody>
-        </table>
-      </div> <!--/container-->
-      </div> <!--/jumbotron-->
-                
+        <div class="container">
+
+            <!-- Main component for a primary marketing message or call to action -->
+            <div class="jumbotron">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th><h3>${userDetails.userName}'s Profile</h3></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>User ID:</strong>${userDetails.userID}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>User Name:</strong>${userDetails.userName}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>User Email:</strong>${userDetails.userEmail}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>User Address:</strong>${userDetails.userAddr}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Member Status:</strong>
+                                <c:choose>
+                                    <c:when test="${userDetails.staff == 'Staff'}">
+                                        Active Staff Member
+                                    </c:when>
+                                    <c:when test="${userDetails.staff == 'StoreOwner'}">
+                                        Store Owner
+                                    </c:when>
+                                    <c:when test="${userDetails.staff == 'Customer'}">
+                                        Active Store Member
+                                    </c:when>
+                                </c:choose>
+
+                            </td>
+                        </tr>
+                        <c:if test="!${userDetails.staff}">
+                            <tr>
+                                <td><strong>User OrderID:</strong>${userDetails.orderID}</td>
+                            </tr>
+                        </c:if>
+                        <tr>
+                            <td><strong>User Options:</strong>
+                                <form action="returnStore">
+                                    <input type="submit" value="Return to the Store" />
+                                    <div class="hidden">
+                                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                    </div>
+                                </form>
+                                <c:choose>
+                                    <c:when test="${userDetails.staff == 'Staff'}">
+                                        <form action="manageInfo">
+                                            <input type="submit" value="Manage Store" />
+                                            <div class="hidden">
+                                                <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                            </div>
+                                        </form>
+                                    </c:when>
+                                    <c:when test="${userDetails.staff == 'StoreOwner'}">
+                                        <form action="manageInfo">
+                                            <input type="submit" value="Manage Store" />
+                                            <div class="hidden">
+                                                <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                            </div>
+                                        </form>
+                                    </c:when>
+                                    <c:when test="${userDetails.staff == 'Customer'}">
+                                        <form action="cartServlet">
+                                            <input type="submit" value="View Order" />
+                                            <div class="hidden">
+                                                <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                            </div>
+                                        </form>
+                                        <form action="custEditProfile.jsp">
+                                            <input type="submit" value="Edit Profile" />
+                                            <div class="hidden">
+                                                <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                            </div>
+                                        </form>
+                                        <form action="custDel.jsp">
+                                            <input type="submit" value="Delete Account" />
+                                            <div class="hidden">
+                                                <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                            </div>
+                                        </form>
+                                    </c:when>
+                                </c:choose>
+                        </tr>
+                        </td>
+                    </tbody>
+                </table>
+                <c:choose>
+                    <c:when test="${userDetails.staff == 'Staff'}">
+                        <strong><p>Products Low in Stock</p></strong>
+                        <sql:query var="product" dataSource="jdbc/mudkip">
+                            SELECT prodName, prodQuant FROM product WHERE product.prodQuant < 5;
+                        </sql:query>
+                        <table border="1">
+                            <!-- column headers -->
+                            <tr>
+                                <c:forEach var="columnName" items="${product.columnNames}">
+                                    <th><c:out value="${columnName}"/></th>
+                                    </c:forEach>
+                            </tr>
+                            <!-- column data -->
+                            <c:forEach var="row" items="${product.rowsByIndex}">
+                                <tr>
+                                    <c:forEach var="column" items="${row}">
+                                        <td><c:out value="${column}"/></td>
+                                    </c:forEach>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </c:when>
+                    <c:when test="${userDetails.staff == 'StoreOwner'}">
+                        <sql:query var="product" dataSource="jdbc/mudkip">
+                            SELECT prodName, prodQuant FROM product WHERE product.prodQuant < 5;
+                        </sql:query>
+                        <table border="1">
+                            <!-- column headers -->
+                            <tr>
+                                <th>Alert:</th>
+                                <th>Products Low in Stock</th>
+                            </tr>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity In Stock</th>
+                            </tr>
+                            <!-- column data -->
+                            <c:forEach var="row" items="${product.rowsByIndex}">
+                                <tr>
+                                    <c:forEach var="column" items="${row}">
+                                        <td><c:out value="${column}"/></td>
+                                    </c:forEach>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </c:when>           
+
+                </c:choose>
+
+
+
+            </div> <!--/container-->
+        </div> <!--/jumbotron-->
+
 
 
 

@@ -1,6 +1,9 @@
 # theStore
 DB Project
+
+
 Triggers
+----------------------------------------------------------------------------------------
 DELIMITER @@
 USE mudkip @@
 DROP TRIGGER IF EXISTS orderInsert @@
@@ -29,5 +32,5 @@ BEGIN
     INSERT INTO orders (orderID, userID) VALUES (New.orderID, New.userID);
 END@@
 DELIMITER;
- 
+--------------------------------------------------------------------------------------
 Assertions

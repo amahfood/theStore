@@ -3,23 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/src/java/Servlet/addStaffServlet.java</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/src/java/Servlet/custManage.java</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/supAdd.jsp</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/staffAdd.jsp</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/src/java/Servlet/addProdServlet.java</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/profile.jsp</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/loggedListAllProd.jsp</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/src/java/Servlet/empManage.java</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/signup.jsp</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/productSearch.jsp</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/src/java/Servlet/prodManage.java</file>
+            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/orderManage.jsp</file>
             <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/manage.jsp</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/src/java/Servlet/supManage.java</file>
             <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/src/java/Servlet/manageInfo.java</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/custAdd.jsp</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/logged.jsp</file>
-            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/prodAdd.jsp</file>
+            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/prodOrderMan.jsp</file>
+            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/allProducts.jsp</file>
+            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/loggedListAllProd.jsp</file>
+            <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/profile.jsp</file>
             <file>file:/C:/Users/Abby/Documents/NetBeansProjects/DB/theStore/web/prodManage.jsp</file>
         </group>
     </open-files>

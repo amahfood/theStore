@@ -70,13 +70,26 @@
                       WHERE product.supID = supplier.supID AND product.active='1' AND product.prodName = ? <sql:param value="${param.prodName}"/>
                   </sql:query>
                   <c:set var="prodDetails" value="${result.rows[0]}"/>
-                  <h2>${prodDetails.prodName}</h2>
-                      <br><strong>Product ID: </strong> ${prodDetails.prodID}</br>
-                      <br><strong>Product Name: </strong> ${prodDetails.prodName}</br>
-                      <br><strong>Product Supplier: </strong> ${prodDetails.supName}</br>
-                      <br><strong>Product Description: </strong> ${prodDetails.prodDesc}</br>
-                      <br><strong>Product Price: </strong> ${prodDetails.prodPrice}</br>
-                      <br><strong>Product Stock: </strong> ${prodDetails.prodQuant} ${prodDetails.prodName} in Stock</br>
+                     <c:choose>
+                          <c:when test="${prodDetails.prodQuant > 0}">
+                            <h2>${prodDetails.prodName}</h2>
+                            <br><strong>Product ID: </strong> ${prodDetails.prodID}</br>
+                            <br><strong>Product Name: </strong> ${prodDetails.prodName}</br>
+                            <br><strong>Product Supplier: </strong> ${prodDetails.supName}</br>
+                            <br><strong>Product Description: </strong> ${prodDetails.prodDesc}</br>
+                            <br><strong>Product Price: </strong> ${prodDetails.prodPrice}</br>
+                            <br><strong>Product Stock: </strong> ${prodDetails.prodQuant} ${prodDetails.prodName} in Stock</br>
+                            <form action="index.jsp">
+                                  <input type="submit" value="Return to Store" />
+                            </form>
+                        </c:when>
+                          <c:otherwise>
+                              <h2>The Product You Searched For is not in Stock</h2>
+                              <form action="index.jsp">
+                                  <input type="submit" value="Return to Store" />
+                            </form>
+                          </c:otherwise>
+                      </c:choose>
                       
               </div><!-- /jumbotron -->
               

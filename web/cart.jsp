@@ -65,6 +65,10 @@
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
         <table border="1">
+            <sql:query var="containsQuery" dataSource="jdbc/mudkip">
+                SELECT product.prodName, contains.quant, product.prodPrice, (prodPrice * contains.quant) AS Cost FROM user, contains, product
+                WHERE user.orderID = ${userDetails.orderID} AND contains.orderID = ${userDetails.orderID} AND product.prodID = contains.prodID;
+            </sql:query>
             <thead>
                 <tr>
                     <th>
@@ -74,10 +78,18 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>
-                        
-                    </td>
+                    <td>Product Name</td>
+                    <td>Quantity</td>
+                    <td>Price Per Item</td>
+                    <td>Cost</td>
                 </tr>
+                <c:forEach var="row" items="${containsQuery.rowsByIndex}">
+                        <tr>
+                            <c:forEach var="column" items="${row}">
+                                <td><c:out value="${column}"/></td>
+                            </c:forEach>
+                        </tr>
+                    </c:forEach>
                 <tr>
                     <td>
                         <form action="returnStore">

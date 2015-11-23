@@ -100,6 +100,10 @@
         <servlet-name>custDelProfile</servlet-name>
         <servlet-class>Servlet.custDelProfile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addToOrder</servlet-name>
+        <servlet-class>Servlet.addToOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>storeServlet</servlet-name>
         <url-pattern>/storeServlet</url-pattern>
@@ -199,6 +203,10 @@
     <servlet-mapping>
         <servlet-name>custDelProfile</servlet-name>
         <url-pattern>/custDelProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addToOrder</servlet-name>
+        <url-pattern>/addToOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

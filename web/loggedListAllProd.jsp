@@ -117,6 +117,12 @@
                           </tr>
                       </c:forEach>
                   </table>
+                      <form action="logged.jsp">
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                  <input type="submit" value="Return to Store" />
+                            </form>
               </div><!-- /jumbotron -->
           </div> <!-- /container -->
            

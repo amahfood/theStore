@@ -80,13 +80,44 @@
       <!-- Main component for a primary marketing message or call to action -->
       <div class="container">
               <div class="jumbotron">
-                  <h2>${prodDetails.prodName}</h2>
-                      <br><strong>Product ID: </strong> ${prodDetails.prodID}</br>
-                      <br><strong>Product Name: </strong> ${prodDetails.prodName}</br>
-                      <br><strong>Product Supplier: </strong> ${prodDetails.supName}</br>
-                      <br><strong>Product Description: </strong> ${prodDetails.prodDesc}</br>
-                      <br><strong>Product Price: </strong> ${prodDetails.prodPrice}</br>
-                      <br><strong>Product Stock: </strong> ${prodDetails.prodQuant} ${prodDetails.prodName} in Stock</br>
+                  
+                      <c:choose>
+                          <c:when test="${prodDetails.prodQuant > 0}">
+                            <h2>${prodDetails.prodName}</h2>
+                            <br><strong>Product ID: </strong> ${prodDetails.prodID}</br>
+                            <br><strong>Product Name: </strong> ${prodDetails.prodName}</br>
+                            <br><strong>Product Supplier: </strong> ${prodDetails.supName}</br>
+                            <br><strong>Product Description: </strong> ${prodDetails.prodDesc}</br>
+                            <br><strong>Product Price: </strong> ${prodDetails.prodPrice}</br>
+                            <br><strong>Product Stock: </strong> ${prodDetails.prodQuant} ${prodDetails.prodName} in Stock</br>
+                            <form action="addToOrder" method="POST">
+                                  <input type="text" name="prodQuant" value="0" />
+                                  <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                    <input type="text" name="userID" value="${userDetails.userID}" />
+                                    <input type="text" name="prodID" value="${prodDetails.prodID}" />
+                                    <input type="text" name="orderID" value="${userDetails.orderID}" />
+                                  </div>
+                                  <input type="submit" value="Add to Order" />
+                            </form>
+                            <form action="logged.jsp">
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                  <input type="submit" value="Return to Store" />
+                            </form>
+                        </c:when>
+                          <c:otherwise>
+                              <h2>The Product You Searched For is Not in Stock</h2>
+                              <form action="logged.jsp">
+                                <div class="hidden">
+                                    <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                                </div>
+                                  <input type="submit" value="Return to Store" />
+                            </form>
+                          </c:otherwise>
+                      </c:choose>
+
                       
               </div><!-- /jumbotron -->
               

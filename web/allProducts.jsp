@@ -102,7 +102,7 @@
                             </tr>
                         </c:forEach>
                     </table>
-                    <form action="inex.jsp">
+                    <form action="index.jsp">
                         <input type="submit" value="Return to Store" />
                     </form>
                 </div><!-- /jumbotron -->

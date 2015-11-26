@@ -57,6 +57,7 @@ public class productSearchServlet extends HttpServlet {
             //Add the data into the database
             
             String sql = "SELECT * FROM product, user WHERE product.prodName=? AND user.userEmail=?;";
+            
             PreparedStatement prep = null;
             try{
                 prep = connection.prepareStatement(sql);

@@ -64,11 +64,14 @@ public class addToOrder extends HttpServlet {
             //Add the data into the database
             
             String sql = "insert into contains values (?,?,?);";
+            String update = "UPDATE product SET prodQuant = product.prodQuant - ? WHERE product.prodID = ? ;";
             String user = "Select * from user Where user.userEmail = ?;";
             PreparedStatement prep = null;
+            PreparedStatement prep1 = null;
             PreparedStatement prep2 = null;
             try{
                 prep = connection.prepareStatement(sql);
+                prep1 = connection.prepareStatement(update);
                 prep2 = connection.prepareStatement(user);
             } catch(Exception E){
                 System.out.println("Error is: " + E.getMessage());
@@ -77,13 +80,17 @@ public class addToOrder extends HttpServlet {
 
             
             //Setting the values which we got from the JSP form
+            prep1.setString(1, prodQuant);
+            prep1.setString(2, prodID);
             prep.setString(1, prodID);
             prep.setString(2, orderID);
             prep.setString(3, prodQuant);
             prep2.setString(1, userEmail);
             prep.executeUpdate();
+            prep1.executeUpdate();
             prep2.executeQuery();
             prep.close();
+            prep1.close();
             connection.close();
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart.jsp");
             requestDispatcher.forward(request, response);

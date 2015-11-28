@@ -108,6 +108,10 @@
         <servlet-name>userDelItem</servlet-name>
         <servlet-class>Servlet.userDelItem</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>staffDelItem</servlet-name>
+        <servlet-class>Servlet.staffDelItem</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>storeServlet</servlet-name>
         <url-pattern>/storeServlet</url-pattern>
@@ -215,6 +219,10 @@
     <servlet-mapping>
         <servlet-name>userDelItem</servlet-name>
         <url-pattern>/userDelItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>staffDelItem</servlet-name>
+        <url-pattern>/staffDelItem</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

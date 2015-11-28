@@ -12,9 +12,15 @@
 <c:set var="userDetails" value="${userQuery.rows[0]}"/>
 
 <sql:query var="containsQuery" dataSource="jdbc/mudkip">
-    SELECT product.prodID, product.prodName AS Product, quant AS Quantity, prodPrice, prodPrice*quant AS Cost FROM contains, user, product, orderr
+    SELECT  contains.i, product.prodID, product.prodName AS Product, quant AS Quantity, prodPrice, prodPrice*quant AS Cost FROM contains, user, product, orderr
     WHERE contains.orderID = ${userDetails.orderID} AND user.orderID = ${userDetails.orderID} AND contains.prodID = product.prodID AND orderr.orderID = ${userDetails.orderID}
 </sql:query>
+
+<sql:query var="orderIndexQuery" dataSource="jdbc/mudkip">
+    SELECT  contains.i FROM contains, user, product, orderr
+    WHERE contains.orderID = ${userDetails.orderID} AND user.orderID = ${userDetails.orderID} AND contains.prodID = product.prodID AND orderr.orderID = ${userDetails.orderID}
+</sql:query>
+
 
 <sql:query var="selectQuery" dataSource="jdbc/mudkip">
     SELECT product.prodID FROM contains, user, product, orderr
@@ -85,6 +91,7 @@
                 <table border="1">
                     <!-- column headers -->
                     <tr>
+                        <th>Index</th>
                         <th>Product ID</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
@@ -100,19 +107,31 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <form action="userEditOrder">
-                    <input type="submit" value="Edit Item in Order" />
+                <form action="userDelItem">
+                    <h4>Select Product Item to Remove</h4>
+                    <select name="orderIndex">
+                        <c:forEach var="row" items="${orderIndexQuery.rowsByIndex}">
+                            <c:forEach var="column" items="${row}">
+                                <option><c:out value="${column}"/></option>
+                            </c:forEach>
+                        </c:forEach>
+                    </select>
+                  
                     <div class="hidden">
                         <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                        <input type="text" name="orderID" value="${userDetails.orderID}" />
                     </div>
+                    <input type="submit" value="Item to Delete" />
                 </form>
                 <form action="userClearOrder">
+                    <h4>Clear Entire Cart</h4>
                     <input type="submit" value="Clear Order" />
                     <div class="hidden">
                         <input type="text" name="userEmail" value="${userDetails.userEmail}" />
                     </div>
                 </form>
                 <form action="userPayOrder">
+                    <h4>Pay for Entire Order</h4>
                     <input type="submit" value="Pay Cost" />
                     <div class="hidden">
                         <input type="text" name="userEmail" value="${userDetails.userEmail}" />

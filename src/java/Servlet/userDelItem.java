@@ -20,11 +20,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Abby
  */
+public class userDelItem extends HttpServlet {
 
+    String quant;
+    String prodID;
 
-public class addToOrder extends HttpServlet {
-    int ID;
-    int i;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,74 +36,82 @@ public class addToOrder extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         //Get user_name and password from jsp page
         String userEmail = request.getParameter("userEmail");
         String userID = request.getParameter("userID");
         String orderID = request.getParameter("orderID");
-        String prodQuant = request.getParameter("prodQuant");
-        String prodID = request.getParameter("prodID");
+        String orderIndex = request.getParameter("orderIndex");
 
-        System.out.println("Add To Order Servlet: The user is: " + userEmail + userID);
-        System.out.println("Add To Order Servlet: The product ID is: " + prodID);
-        System.out.println("Add To Order Servlet: The product Quantity is: " + prodQuant);
-        System.out.println("Add To Order Servlet: The Order ID is: " + orderID);
-              
+        System.out.println("UserDelItem Servlet: The user is: " + userEmail + userID);
+        System.out.println("UserDelItem Servlet: The order ID is: " + orderID);
+        System.out.println("UserDelItem Servlet: The Order Index is: " + orderIndex);
+
         //Declaring classes required for Database support
-        
-        
-        try{
+        try {
             Connection connection = null;
             //Creating a connection to the required DB
-            try{
+            try {
                 connection = DriverManager.getConnection("jdbc:mysql://72.196.117.187:3306/mudkip?zeroDateTimeBehavior=convertToNull", "admin", "root");
-            } catch(Exception E){
+            } catch (Exception E) {
                 System.out.println("Error is: " + E.getMessage());
             }
-            
-            
-            //Add the data into the database
-            
-            String sql = "insert into contains values (?,?,?,?);";
-            String update = "UPDATE product SET prodQuant = product.prodQuant - ? WHERE product.prodID = ? ;";
+
+            //Getting Quantity to Add Back to Store
+            String contains = "Select quant from contains Where orderID = ? AND i = ?;";
+            //Getting Product ID
+            String FindprodID = "Select prodID from contains Where orderID = ? AND i = ?;";
+
+            //Deleting Item from User's Cart
+            String sql = "DELETE FROM contains WHERE orderID = ? AND i = ?;";
+
+            //Adding Back to Store
+            String update = "UPDATE product SET prodQuant = product.prodQuant + ? WHERE product.prodID = ? ;";
+            //Maintaining User Logged In Information
             String user = "Select * from user Where user.userEmail = ?;";
-            String contains = "Select MAX(i) AS maxi from contains Where contains.orderID = ?;";
-            
+
             PreparedStatement prep = null;
             PreparedStatement prep1 = null;
             PreparedStatement prep2 = null;
             PreparedStatement prep3 = null;
-            
-            try{
-                
+            PreparedStatement prep4 = null;
+
+            try {
+
                 prep = connection.prepareStatement(sql);
                 prep1 = connection.prepareStatement(update);
                 prep2 = connection.prepareStatement(user);
                 prep3 = connection.prepareStatement(contains);
-            } catch(Exception E){
+                prep4 = connection.prepareStatement(FindprodID);
+            } catch (Exception E) {
                 System.out.println("Error is: " + E.getMessage());
             }
-            
-            try{
-                prep3.setString(1, orderID);
-                ResultSet rs = prep3.executeQuery();
-                rs.next();
-                i = rs.getInt(1) + 1;
-            } catch(Exception E){
-                System.out.println("Error is: " + E.getMessage());
-                i = 1;
-            }
-            
 
-            System.out.println("Add To Order Servlet: The i is: " + i);
-            
+            //Finding Quantity
+            prep3.setString(1, orderID);
+            prep3.setString(2, orderIndex);
+            ResultSet rs = prep3.executeQuery();
+            rs.next();
+            quant = rs.getString(1);
+
+            //Finding Product ID
+            prep4.setString(1, orderID);
+            prep4.setString(2, orderIndex);
+            ResultSet rs1 = prep4.executeQuery();
+            rs1.next();
+            prodID = rs1.getString(1);
+
+            System.out.println("UserDelItem Servlet: The Order quant is: " + quant);
+            System.out.println("UserDelItem Servlet: The Order prodID is: " + prodID);
+
             //Setting the values which we got from the JSP form
-            prep1.setString(1, prodQuant);
+            //Adding items back to store
+            prep1.setString(1, quant);
             prep1.setString(2, prodID);
-            prep.setString(1, prodID);
-            prep.setString(2, orderID);
-            prep.setString(3, prodQuant);
-            prep.setInt(4, i);
+            //Deleting from user's cart
+            prep.setString(1, orderID);
+            prep.setString(2, orderIndex);
+            //Maintaining User Log in Informaiton
             prep2.setString(1, userEmail);
             prep.executeUpdate();
             prep1.executeUpdate();
@@ -113,12 +121,11 @@ public class addToOrder extends HttpServlet {
             connection.close();
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart.jsp");
             requestDispatcher.forward(request, response);
-                    
-        } catch(Exception E){
+
+        } catch (Exception E) {
             System.out.println("The Error is ==" + E.getMessage());
         }
-        
-              
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

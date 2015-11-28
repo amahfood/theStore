@@ -104,6 +104,10 @@
         <servlet-name>addToOrder</servlet-name>
         <servlet-class>Servlet.addToOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>userDelItem</servlet-name>
+        <servlet-class>Servlet.userDelItem</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>storeServlet</servlet-name>
         <url-pattern>/storeServlet</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>addToOrder</servlet-name>
         <url-pattern>/addToOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>userDelItem</servlet-name>
+        <url-pattern>/userDelItem</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

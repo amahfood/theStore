@@ -112,6 +112,10 @@
         <servlet-name>staffDelItem</servlet-name>
         <servlet-class>Servlet.staffDelItem</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>userPayOrder</servlet-name>
+        <servlet-class>Servlet.userPayOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>storeServlet</servlet-name>
         <url-pattern>/storeServlet</url-pattern>
@@ -223,6 +227,10 @@
     <servlet-mapping>
         <servlet-name>staffDelItem</servlet-name>
         <url-pattern>/staffDelItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>userPayOrder</servlet-name>
+        <url-pattern>/userPayOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

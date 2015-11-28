@@ -133,22 +133,6 @@
                     </div>
                     <input type="submit" value="Item to Delete" />
                 </form>
-
-
-                <form action="staffClearOrder">
-                    <input type="submit" value="Delete Everything in Order" />
-                    <div class="hidden">
-                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
-                        <input type="text" name="orderID" value="${custDetails.orderID}" />
-                    </div>
-                </form> 
-                <form action="userEdit.jsp">
-                    <input type="submit" value="Edit ${custDetails.userName}'s Order" />
-                    <div class="hidden">
-                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
-                        <input type="text" name="userID" value="${custDetails.userID}" />
-                    </div>
-                </form> 
             </div>
 
         </div> <!-- /container -->

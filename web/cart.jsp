@@ -33,6 +33,12 @@
 </sql:query>
 <c:set var="total" value="${totalCost.rows[0]}"/>
 
+<sql:query var="totalPaid" dataSource="jdbc/mudkip">
+    SELECT orderPaid AS orderCost FROM orderr
+    WHERE orderID = ${userDetails.orderID}
+</sql:query>
+<c:set var="paid" value="${totalPaid.rows[0]}"/>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -86,7 +92,8 @@
                 <h3>----------------------------------------</h3>
                 <h3>${userDetails.userName}'s Cart</h3>
                 <!-- Total Cost -->
-                <h4>Total Cost: $${total.Total}</h4>
+                <h4>Total Cost for Current Order: $${total.Total}</h4>
+                <h4>Total Paid for Previous Order: $${paid.orderPaid}</h4>
                 <h3>----------------------------------------</h3>
                 <table border="1">
                     <!-- column headers -->
@@ -116,25 +123,19 @@
                             </c:forEach>
                         </c:forEach>
                     </select>
-                  
                     <div class="hidden">
                         <input type="text" name="userEmail" value="${userDetails.userEmail}" />
                         <input type="text" name="orderID" value="${userDetails.orderID}" />
                     </div>
                     <input type="submit" value="Item to Delete" />
                 </form>
-                <form action="userClearOrder">
-                    <h4>Clear Entire Cart</h4>
-                    <input type="submit" value="Clear Order" />
-                    <div class="hidden">
-                        <input type="text" name="userEmail" value="${userDetails.userEmail}" />
-                    </div>
-                </form>
                 <form action="userPayOrder">
                     <h4>Pay for Entire Order</h4>
                     <input type="submit" value="Pay Cost" />
                     <div class="hidden">
                         <input type="text" name="userEmail" value="${userDetails.userEmail}" />
+                        <input type="text" name="orderID" value="${userDetails.orderID}" />
+                        <input type="text" name="orderCost" value="${total.Total}" />
                     </div>
                 </form>
             </div>

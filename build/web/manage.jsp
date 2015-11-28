@@ -38,7 +38,7 @@
     
  <sql:query var="orderDisplay" dataSource="jdbc/mudkip">
     SELECT * FROM orders, orderr, user
-    WHERE orders.orderID = orderr.orderID AND orders.userID = user.userID
+    WHERE orders.orderID = orderr.orderID AND orders.userID = user.userID AND user.staff = 'Customer'
 </sql:query>
 
 

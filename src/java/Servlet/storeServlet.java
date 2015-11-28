@@ -82,12 +82,12 @@ public class storeServlet extends HttpServlet {
             ResultSet rs = prep1.executeQuery();
             rs.next();
             ID = rs.getInt(1) + 1;
-            System.out.println("ID = " + ID);
+            System.out.println("userID = " + ID);
             
             ResultSet rs1 = prep2.executeQuery();
             rs1.next();
             orderNum = rs.getInt(1) + 1;
-            System.out.println("ID = " + ID);
+            System.out.println("orderID = " + ID);
             
             //Setting the values which we got from the JSP form
             prep.setInt(1, ID);

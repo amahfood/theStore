@@ -3,7 +3,7 @@ DB Project
 
 
 Triggers
-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
 DELIMITER @@
 USE mudkip @@
 DROP TRIGGER IF EXISTS orderInsert @@
@@ -17,7 +17,7 @@ BEGIN
 END@@
 DELIMITER;
 ----------------------------------------------------------------------------------------------------------------------------
-DELIMITER @@ USE mudkip @@ DROP TRIGGER IF EXISTS orderInsert @@
+DELIMITER @@ USE mudkip @@ DROP TRIGGER IF EXISTS orderDelete @@
 CREATE TRIGGER orderDelete
 BEFORE DELETE ON user 
 FOR EACH ROW BEGIN 
@@ -26,5 +26,5 @@ WHERE orderID = OLD.orderID;
 DELETE FROM orderr
 WHERE orderID = OLD.orderID; 
 END@@
---------------------------------------------------------------------------------------
-Assertions
+-----------------------------------------------------------------------------------------------------------------------------
+

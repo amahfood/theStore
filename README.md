@@ -2,7 +2,7 @@
 DB Project
 
 
-Triggers
+Trigger 1
 -----------------------------------------------------------------------------------------------------------------------------
 DELIMITER @@
 USE mudkip @@
@@ -16,6 +16,8 @@ BEGIN
     INSERT INTO orders (orderID, userID) VALUES (New.orderID, New.userID);
 END@@
 DELIMITER;
+
+Trigger 2
 ----------------------------------------------------------------------------------------------------------------------------
 DELIMITER @@ USE mudkip @@ DROP TRIGGER IF EXISTS orderDelete @@
 CREATE TRIGGER orderDelete
@@ -26,5 +28,5 @@ WHERE orderID = OLD.orderID;
 DELETE FROM orderr
 WHERE orderID = OLD.orderID; 
 END@@
------------------------------------------------------------------------------------------------------------------------------
+
 
